@@ -1,0 +1,20 @@
+# Générés par les scripts (reproductibles, non versionnés)
+figures/
+demo/figures/
+demo/donnees/
+demo/demo_sortie.txt
+
+# Le support de cours reste local
+*.pptx
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / éditeur
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
