@@ -74,34 +74,35 @@ def f_pipeline():
 
 # 2 ---------------------------------------------------------------- cercles
 def f_cercles():
-    fig, ax = plt.subplots(figsize=(4.6, 4.2)); ax.set_xlim(0, 10); ax.set_ylim(0, 10); ax.axis("off")
+    fig, ax = plt.subplots(figsize=(5.0, 5.0)); ax.set_xlim(0, 10); ax.set_ylim(-1.4, 10); ax.set_aspect("equal"); ax.axis("off")
     ax.add_patch(Circle((5, 5), 4.6, fc=CLAIR, ec=GRIS, lw=1.4))
     ax.add_patch(Circle((5, 4.4), 3.2, fc="#E1E9F4", ec=BLEU, lw=1.4))
-    ax.add_patch(Circle((5, 3.8), 1.9, fc=BRONZE, ec=BRONZE, lw=1.4, alpha=0.85))
-    ax.text(5, 9.0, "Intelligence artificielle", ha="center", fontsize=12, color=NAVY, fontweight="bold")
-    ax.text(5, 7.0, "Apprentissage automatique", ha="center", fontsize=11, color=BLEU)
+    ax.add_patch(Circle((5, 3.8), 1.9, fc=BRONZE, ec=BRONZE, lw=1.4, alpha=0.9))
+    ax.text(5, 8.5, "Intelligence\nartificielle", ha="center", va="center", fontsize=11, color=NAVY, fontweight="bold")
+    ax.text(5, 6.5, "Apprentissage\nautomatique", ha="center", va="center", fontsize=10, color=BLEU)
     ax.text(5, 3.8, "Apprentissage\nprofond", ha="center", va="center", fontsize=10, color="white", fontweight="bold")
-    ax.text(5, 0.4, "règles, graphes, planification : de l'IA sans apprentissage", ha="center", fontsize=9, color=GRIS)
+    ax.text(5, -0.7, "Sans apprentissage : règles, graphes, planification", ha="center", va="center", fontsize=9, color=GRIS)
     save(fig, "fig_cercles")
 
 
 # 3 ---------------------------------------------------------------- histoire
 def f_histoire():
-    fig, ax = plt.subplots(figsize=(11, 2.5)); ax.set_xlim(1945, 2028); ax.set_ylim(-1.6, 1.9); ax.axis("off")
+    fig, ax = plt.subplots(figsize=(11, 2.9)); ax.set_xlim(1945, 2028); ax.set_ylim(-2.2, 1.9); ax.axis("off")
     ax.axhline(0, color=GRIS, lw=1.5)
     # deux hivers
     for a, b in [(1974, 1980), (1987, 1993)]:
         ax.add_patch(Rectangle((a, -0.35), b - a, 0.7, fc=SABLE, alpha=0.5, ec="none"))
-    ev = [(1950, "Turing", 1), (1958, "Perceptron", -1), (1969, "XOR (Minsky)", 1),
-          (1986, "Rétroprop.", -1), (2012, "AlexNet", 1), (2017, "Transformer", -1),
-          (2020, "GPT-3", 1), (2022, "LLM grand public", -1)]
-    for x, lab, cote in ev:
+    ev = [(1950, "Turing", 1, 1), (1958, "Perceptron", -1, 1), (1969, "XOR (Minsky)", 1, 1),
+          (1986, "Rétroprop.", -1, 1), (2012, "AlexNet", 1, 1), (2017, "Transformer", -1, 1),
+          (2020, "GPT-3", 1, 1), (2022, "ChatGPT", -1, 2)]
+    for x, lab, cote, niv in ev:
         ax.plot([x], [0], "o", color=BRONZE, ms=7)
-        ax.plot([x, x], [0, 0.5 * cote], color=GRIS, lw=1)
-        ax.text(x, 0.62 * cote + (0.15 if cote > 0 else -0.15), f"{x}\n{lab}",
+        ax.plot([x, x], [0, (0.5 if niv == 1 else 1.15) * cote], color=GRIS, lw=1)
+        ancre = 0.77 if cote > 0 else (-0.77 if niv == 1 else -1.5)
+        ax.text(x, ancre, f"{x}\n{lab}",
                 ha="center", va="bottom" if cote > 0 else "top", fontsize=9, color=NAVY)
-    ax.text(1977, -1.35, "hiver", ha="center", fontsize=8, color=GRIS)
-    ax.text(1990, -1.35, "hiver", ha="center", fontsize=8, color=GRIS)
+    ax.text(1977, 0.55, "hiver", ha="center", fontsize=8, color=GRIS)
+    ax.text(1990, 0.55, "hiver", ha="center", fontsize=8, color=GRIS)
     save(fig, "fig_histoire")
 
 
@@ -124,13 +125,13 @@ def f_deuxcas():
     fig, axes = plt.subplots(1, 2, figsize=(5.0, 3.2))
     for ax in axes: ax.set_xlim(0, 10); ax.set_ylim(0, 6); ax.axis("off")
     a = axes[0]
-    boite(a, 0.3, 3.4, 4.2, 1.2, "URL", fs=11); boite(a, 5.5, 3.4, 4.2, 1.2, "score phishing", fs=11)
-    fleche(a, (4.5, 4.0), (5.5, 4.0))
+    boite(a, 0.2, 3.4, 4.4, 1.2, "URL", fs=9.5); boite(a, 5.4, 3.4, 4.4, 1.2, "score\nphishing", fs=9.5)
+    fleche(a, (4.6, 4.0), (5.4, 4.0))
     a.text(5, 5.4, "Prédictif : classer", ha="center", fontsize=12, color=NAVY, fontweight="bold")
     a.text(5, 1.6, "données étiquetées\nmétrique : erreur de classe", ha="center", fontsize=9, color=GRIS)
     b = axes[1]
-    boite(b, 0.3, 3.4, 4.2, 1.2, "début de texte", fs=11); boite(b, 5.5, 3.4, 4.2, 1.2, "token suivant", fs=11)
-    fleche(b, (4.5, 4.0), (5.5, 4.0))
+    boite(b, 0.2, 3.4, 4.4, 1.2, "début\nde texte", fs=9.5); boite(b, 5.4, 3.4, 4.4, 1.2, "token\nsuivant", fs=9.5)
+    fleche(b, (4.6, 4.0), (5.4, 4.0))
     b.text(5, 5.4, "Génératif : prédire", ha="center", fontsize=12, color=NAVY, fontweight="bold")
     b.text(5, 1.6, "texte massif\nmétrique : vraisemblance", ha="center", fontsize=9, color=GRIS)
     save(fig, "fig_deuxcas")
@@ -151,8 +152,8 @@ def f_paradigmes():
     b.scatter(rng.uniform(1, 9, 24), rng.uniform(2, 4.4, 24), c=GRIS, s=50)
     b.text(5, 1.2, "aucune étiquette\non cherche une structure", ha="center", fontsize=9, color=GRIS)
     c = axes[2]
-    boite(c, 0.6, 2.6, 3.4, 1.4, "agent", fs=10); boite(c, 6.0, 2.6, 3.4, 1.4, "environnement", fs=10)
-    fleche(c, (4.0, 3.6), (6.0, 3.6)); fleche(c, (6.0, 2.9), (4.0, 2.9))
+    boite(c, 0.6, 2.6, 3.4, 1.4, "agent", fs=10); boite(c, 5.7, 2.6, 3.9, 1.4, "environnement", fs=8)
+    fleche(c, (4.0, 3.6), (5.7, 3.6)); fleche(c, (5.7, 2.9), (4.0, 2.9))
     c.text(5, 4.4, "action", ha="center", fontsize=8, color=GRIS)
     c.text(5, 2.2, "état + récompense", ha="center", fontsize=8, color=GRIS)
     c.text(5, 1.0, "signal de récompense, souvent retardé", ha="center", fontsize=9, color=GRIS)
@@ -498,7 +499,7 @@ def f_cnn():
     fig, ax = plt.subplots(figsize=(11, 2.4)); ax.set_xlim(0, 12); ax.set_ylim(0, 3); ax.axis("off")
     etages = [("entrée\n224×224×3", 1.6, 2.2), ("conv\n112×112×32", 1.4, 1.9),
               ("pool\n56×56×32", 1.2, 1.6), ("conv\n28×28×64", 1.0, 1.3),
-              ("pool\n14×14×64", 0.8, 1.0), ("denses\n+ softmax", 0.7, 0.8)]
+              ("pool\n14×14×64", 1.0, 1.0), ("denses\nsoftmax", 1.0, 0.8)]
     x = 0.2
     for lab, w, h in etages:
         boite(ax, x, 1.5 - h / 2, w, h, lab, fs=8.5)
@@ -570,17 +571,7 @@ def f_topp():
     save(fig, "fig_topp")
 
 
-# 33 --------------------------------------------------------------- prompt
-def f_prompt():
-    fig, ax = plt.subplots(figsize=(5.0, 3.4)); ax.set_xlim(0, 10); ax.set_ylim(0, 6); ax.axis("off")
-    boite(ax, 0.4, 4.3, 9.2, 1.3, "Tâche : classe l'URL en bénin ou phishing", fs=10)
-    boite(ax, 0.4, 2.7, 9.2, 1.3, "Exemples : paypal-verify.xyz → phishing ; github.com → bénin", fs=9.5)
-    boite(ax, 0.4, 1.1, 9.2, 1.3, "Format : réponds par un seul mot, sans phrase", fs=10)
-    ax.text(5, 5.85, "Un prompt = tâche + exemple + format", ha="center", fontsize=11, color=NAVY, fontweight="bold")
-    save(fig, "fig_prompt")
-
-
-# 34 --------------------------------------------------------------- limites
+# 33 --------------------------------------------------------------- limites
 def f_limites():
     fig, ax = plt.subplots(figsize=(5.0, 3.3)); ax.set_xlim(0, 10); ax.set_ylim(0, 6); ax.axis("off")
     boite(ax, 0.4, 3.4, 4.3, 1.6, "Fluide et plausible\n« CVE-2024-12345… »", fc="#E1E9F4", fs=10)
@@ -599,6 +590,6 @@ if __name__ == "__main__":
               f_rl, f_bandit, f_confusion_concept, f_precrap, f_regression, f_neurone,
               f_xor, f_reseau, f_activations, f_softmax, f_epoque, f_gradient,
               f_backprop, f_lr, f_convolution, f_cnn, f_predgen, f_autoregressif,
-              f_temperature, f_topp, f_prompt, f_limites]:
+              f_temperature, f_topp, f_limites]:
         f()
     print("Terminé :", len(os.listdir(OUT)), "fichiers dans", OUT)
