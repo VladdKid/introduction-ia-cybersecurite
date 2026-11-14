@@ -3,31 +3,45 @@
 Support de code du cours « Introduction à l'intelligence artificielle » (première
 séance, 6 h) destiné à des étudiants de M2 cybersécurité.
 
-Ce dépôt contient **uniquement le code source** : la démonstration scikit-learn et
-le script qui régénère les figures du cours. Les images, les jeux de données et le
-diaporama `.pptx` sont générés ou conservés en local ; ils ne sont pas versionnés.
+Ce dépôt contient **uniquement le code source** de la démonstration scikit-learn,
+sous deux formes :
+
+- **un notebook Jupyter expliqué pas à pas** — la forme recommandée pour le cours ;
+- un script Python compact — la même démonstration, sans les explications.
+
+Les images, les jeux de données et le diaporama `.pptx` sont générés ou conservés
+en local ; ils ne sont pas versionnés.
 
 ## Contenu
 
 ```
 .
 ├── demo/
-│   └── demo_phishing.py      # Démo : détecter des URL de phishing (scikit-learn)
-├── scripts/
-│   └── figures_cours.py      # Régénère les 34 figures de concept du cours
+│   ├── demo_phishing.ipynb   # Démo expliquée ligne par ligne (notebook) ← recommandé
+│   └── demo_phishing.py      # Même démo en script compact (écrit figures + données)
 ├── requirements.txt          # Dépendances Python
 └── README.md
 ```
 
-Après exécution, deux dossiers apparaissent (ignorés par git) :
+## Récupérer le code (cloner)
 
-- `demo/figures/` et `demo/donnees/` : sorties de la démonstration ;
-- `figures/` : figures de concept du cours.
+« **Cloner** » = télécharger une copie complète du dépôt GitHub sur votre machine.
+Ouvrez un terminal (sous Windows : *PowerShell* ou *Git Bash*) et tapez :
 
-## Prérequis
+```bash
+git clone https://github.com/VladdKid/introduction-ia-cybersecurite.git
+cd introduction-ia-cybersecurite
+```
 
-- Python 3.10 ou plus récent.
-- Les bibliothèques de `requirements.txt`.
+- `git clone <url>` crée un dossier `introduction-ia-cybersecurite/` avec tout le code.
+- `cd ...` (« *change directory* ») vous place **dans** ce dossier.
+- Pas de `git` ? Installez-le depuis <https://git-scm.com>, ou téléchargez le ZIP via
+  le bouton vert **Code ▸ Download ZIP** sur la page GitHub, puis décompressez.
+
+## Installer les bibliothèques
+
+Python 3.10 ou plus récent. Un **environnement virtuel** isole les bibliothèques du
+projet du reste de votre machine :
 
 ```bash
 python -m venv .venv
@@ -35,41 +49,44 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Lancer la démonstration phishing
+## Lancer la démonstration (notebook, recommandé)
+
+```bash
+jupyter notebook demo/demo_phishing.ipynb
+```
+
+Le navigateur s'ouvre sur le notebook ; choisissez le kernel `.venv` puis
+*Run All* / *Tout exécuter*. Vous pouvez aussi l'ouvrir depuis **VS Code**
+(extensions *Python* + *Jupyter*) ou **JupyterLab**.
+
+Le notebook est pensé pour des étudiants qui **savent coder mais n'ont jamais fait
+de machine learning** : chaque terme du domaine y est défini en français avec une
+analogie (classification vs régression, graine aléatoire / `random_state`,
+régression logistique, forêt aléatoire, matrice de confusion, précision / rappel /
+F1, seuil de décision, ROC/AUC…), et **chaque ligne de code est commentée**. Les
+figures s'affichent directement dans le notebook.
+
+## Variante script (compact)
 
 ```bash
 python demo/demo_phishing.py
 ```
 
-La démonstration est **entièrement hors ligne** : elle fabrique elle-même un jeu
-de 2 000 URL **simulées** (graine aléatoire fixée à 42), extrait 11 caractéristiques
-par URL, entraîne une régression logistique et une forêt aléatoire, puis affiche
-matrice de confusion, rapport de classification, compromis seuil / rappel et
-importance des caractéristiques. Elle écrit ses figures dans `demo/figures/` et le
-jeu de données dans `demo/donnees/urls_simulees.csv`.
+Même démonstration, sans les explications interleavées. Elle affiche les mêmes
+chiffres et écrit ses figures dans `demo/figures/` ainsi que le jeu de données dans
+`demo/donnees/urls_simulees.csv` (dossiers ignorés par git).
 
-> **Données simulées.** Aucune URL réelle n'est collectée ni téléchargée. Les URL
-> et les étiquettes sont synthétiques, à but pédagogique ; environ 7 % d'étiquettes
-> sont bruitées volontairement pour obtenir un problème réaliste (ni trivial ni
-> parfait). Les chiffres affichés sont donc reproductibles d'une machine à l'autre.
+## Données simulées et reproductibilité
 
-## Régénérer les figures du cours
-
-```bash
-python scripts/figures_cours.py
-```
-
-Produit les 34 figures de concept (pipeline, cercles IA/ML/DL, frise historique,
-surapprentissage, descente de gradient, convolution, softmax, etc.) dans `figures/`.
-`scipy` n'est requis que pour la figure de convolution ; sans lui, le script
-utilise une solution de repli et continue.
-
-## Reproductibilité
-
-- Graine aléatoire fixée (`GRAINE = 42`) dans les deux scripts.
-- Aucune dépendance réseau : tout est calculé localement.
+- **2 000 URL entièrement simulées**, fabriquées localement : aucune URL réelle
+  n'est collectée ni téléchargée. Tout fonctionne **hors ligne**.
+- **Graine aléatoire fixée** (`GRAINE = 42`) : le pseudo-hasard est reproductible,
+  donc les chiffres sont identiques d'une machine à l'autre et d'un lancement à
+  l'autre.
+- **~7 % d'étiquettes bruitées** volontairement : le problème est réaliste (ni
+  trivial ni parfait), aucun modèle ne peut atteindre 100 %.
 - Les versions de `requirements.txt` sont celles utilisées pour produire les
-  figures et chiffres du cours.
+  chiffres du cours.
 
 ## Public et périmètre
 

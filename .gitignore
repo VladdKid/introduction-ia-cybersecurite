@@ -7,6 +7,9 @@ demo/demo_sortie.txt
 # Le support de cours reste local
 *.pptx
 
+# Script de régénération des figures du cours : conservé en local, non versionné
+scripts/
+
 # Python
 __pycache__/
 *.py[cod]

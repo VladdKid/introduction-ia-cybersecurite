@@ -2,4 +2,4 @@ numpy>=2.1
 pandas>=2.2
 matplotlib>=3.9
 scikit-learn>=1.6
-scipy>=1.15
+jupyter>=1.0
