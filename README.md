@@ -53,16 +53,6 @@ jeu de données dans `demo/donnees/urls_simulees.csv`.
 > sont bruitées volontairement pour obtenir un problème réaliste (ni trivial ni
 > parfait). Les chiffres affichés sont donc reproductibles d'une machine à l'autre.
 
-## Régénérer les figures du cours
-
-```bash
-python scripts/figures_cours.py
-```
-
-Produit les 34 figures de concept (pipeline, cercles IA/ML/DL, frise historique,
-surapprentissage, descente de gradient, convolution, softmax, etc.) dans `figures/`.
-`scipy` n'est requis que pour la figure de convolution ; sans lui, le script
-utilise une solution de repli et continue.
 
 ## Reproductibilité
 
