@@ -4,9 +4,11 @@ Support de code du cours « Introduction à l'intelligence artificielle » (prem
 séance, 6 h) destiné à des étudiants de M2 cybersécurité.
 
 Ce dépôt contient **uniquement le code source** de la démonstration scikit-learn,
-sous deux formes :
+sous trois formes :
 
 - **un notebook Jupyter expliqué pas à pas** — la forme recommandée pour le cours ;
+- **un TP auto-évalué** — l'étudiant entraîne et évalue lui-même les modèles, guidé
+  par des indices et des cellules de vérification (corrigé séparé) ;
 - un script Python compact — la même démonstration, sans les explications.
 
 Les images, les jeux de données et le diaporama `.pptx` sont générés ou conservés
@@ -18,6 +20,8 @@ en local ; ils ne sont pas versionnés.
 .
 ├── demo/
 │   ├── demo_phishing.ipynb   # Démo expliquée ligne par ligne (notebook) ← recommandé
+│   ├── demo_tests.ipynb      # TP auto-évalué : à compléter par l'étudiant
+│   ├── demo_tests_corrige.ipynb  # Corrigé du TP (exécuté, vérifications vertes)
 │   └── demo_phishing.py      # Même démo en script compact (écrit figures + données)
 ├── requirements.txt          # Dépendances Python
 └── README.md
@@ -65,6 +69,30 @@ analogie (classification vs régression, graine aléatoire / `random_state`,
 régression logistique, forêt aléatoire, matrice de confusion, précision / rappel /
 F1, seuil de décision, ROC/AUC…), et **chaque ligne de code est commentée**. Les
 figures s'affichent directement dans le notebook.
+
+## TP auto-évalué (tester soi-même)
+
+```bash
+jupyter notebook demo/demo_tests.ipynb
+```
+
+Contrairement à la démo (qui montre tout), le **TP fait coder l'étudiant** : chaque
+exercice donne un **but**, un **squelette de code avec des trous** (`...` /
+`# TODO`) à compléter, des **indices progressifs** (du plus vague au plus précis),
+et une **cellule de vérification** (`assert`) qui confirme ou guide vers la bonne
+réponse. Six exercices, pas trop difficiles : toute la préparation des données est
+fournie, l'étudiant ne remplit que 1 à 3 lignes par exercice.
+
+1. Entraîner la régression logistique (scaler + pipeline).
+2. Entraîner la forêt aléatoire (200 arbres, graine fixée).
+3. Prédire sur le test + matrice de confusion.
+4. Calculer précision / rappel / F1 **à la main** depuis la matrice.
+5. Observer l'effet du **seuil** sur précision / rappel.
+6. Courbe **ROC** et **AUC**.
+
+Le **corrigé** (mêmes cellules, trous remplis, exécuté avec toutes les
+vérifications vertes) est dans `demo/demo_tests_corrige.ipynb` — à ne consulter
+qu'après avoir essayé.
 
 ## Variante script (compact)
 
