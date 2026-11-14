@@ -52,6 +52,29 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+## Version Google Colab (sans Jupyter, dans le navigateur)
+
+Si vous n'avez **pas Python / Jupyter installés**, utilisez **Google Colab** : le
+notebook s'exécute **dans le navigateur**, sur une machine fournie par Google —
+**rien à installer** sur votre PC (un compte Google suffit).
+
+- **Démo expliquée :**
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VladdKid/introduction-ia-cybersecurite/blob/main/demo/demo_phishing.ipynb)
+- **TP auto-évalué :**
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VladdKid/introduction-ia-cybersecurite/blob/main/demo/demo_tests.ipynb)
+
+Ou manuellement : <https://colab.research.google.com> → *Fichier* → *Ouvrir le
+notebook* → onglet **GitHub** → collez
+`https://github.com/VladdKid/introduction-ia-cybersecurite` → choisissez le
+notebook dans `demo/`. Puis *Exécution* → *Tout exécuter*.
+
+Colab **préinstalle** `numpy`, `pandas`, `scikit-learn` et `matplotlib` : aucune
+installation n'est nécessaire. Une session Colab est **éphémère**, mais sans
+importance ici : les notebooks **fabriquent leurs données simulées** à chaque
+exécution et n'écrivent aucun fichier ; la graine fixée (42) garantit les mêmes
+chiffres. Pour travailler **hors ligne / sans compte Google**, utilisez la méthode
+clone + venv + Jupyter ci-dessous.
+
 ## Lancer la démonstration (notebook, recommandé)
 
 ```bash
