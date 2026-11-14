@@ -8,7 +8,7 @@ sous trois formes :
 
 - **un notebook Jupyter expliqué pas à pas** — la forme recommandée pour le cours ;
 - **un TP auto-évalué** — l'étudiant entraîne et évalue lui-même les modèles, guidé
-  par des indices et des cellules de vérification (corrigé séparé) ;
+  par des indices et des cellules de vérification (corrigé communiqué après le TP) ;
 - un script Python compact — la même démonstration, sans les explications.
 
 Les images, les jeux de données et le diaporama `.pptx` sont générés ou conservés
@@ -21,7 +21,6 @@ en local ; ils ne sont pas versionnés.
 ├── demo/
 │   ├── demo_phishing.ipynb   # Démo expliquée ligne par ligne (notebook) ← recommandé
 │   ├── demo_tests.ipynb      # TP auto-évalué : à compléter par l'étudiant
-│   ├── demo_tests_corrige.ipynb  # Corrigé du TP (exécuté, vérifications vertes)
 │   └── demo_phishing.py      # Même démo en script compact (écrit figures + données)
 ├── requirements.txt          # Dépendances Python
 └── README.md
@@ -90,9 +89,8 @@ fournie, l'étudiant ne remplit que 1 à 3 lignes par exercice.
 5. Observer l'effet du **seuil** sur précision / rappel.
 6. Courbe **ROC** et **AUC**.
 
-Le **corrigé** (mêmes cellules, trous remplis, exécuté avec toutes les
-vérifications vertes) est dans `demo/demo_tests_corrige.ipynb` — à ne consulter
-qu'après avoir essayé.
+Le **corrigé** n'est pas dans le dépôt pour l'instant : il est communiqué par
+l'enseignant **après le TP**, pour laisser les étudiants chercher.
 
 ## Variante script (compact)
 
