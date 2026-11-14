@@ -348,22 +348,6 @@ def f_neurone():
     save(fig, "fig_neurone")
 
 
-# 19 --------------------------------------------------------------- xor
-def f_xor():
-    fig, axes = plt.subplots(1, 2, figsize=(5.0, 3.2))
-    pts = np.array([[0, 0], [0, 1], [1, 0], [1, 1]]); lab = np.array([0, 1, 1, 0])
-    for ax in axes:
-        ax.scatter(pts[lab == 0, 0], pts[lab == 0, 1], c=BLEU, s=90, marker="o")
-        ax.scatter(pts[lab == 1, 0], pts[lab == 1, 1], c=BRONZE, s=90, marker="s")
-        ax.set_xlim(-0.4, 1.4); ax.set_ylim(-0.4, 1.4); ax.set_xticks([0, 1]); ax.set_yticks([0, 1])
-    axes[0].plot([-0.3, 1.3], [1.3, -0.3], color=GRIS, ls="--")
-    axes[0].set_title("Perceptron : aucune droite", fontsize=10)
-    t = np.linspace(-0.3, 1.3, 100)
-    axes[1].plot(t, 0.5 + 0.45 * np.sin((t - 0.5) * 3.2), color=VERT, lw=2)
-    axes[1].set_title("Couche cachée : séparable", fontsize=10)
-    save(fig, "fig_xor")
-
-
 # 20 --------------------------------------------------------------- reseau
 def f_reseau():
     fig, ax = plt.subplots(figsize=(5.0, 3.4)); ax.set_xlim(0, 10); ax.set_ylim(0, 6); ax.axis("off")
@@ -387,111 +371,17 @@ def f_reseau():
     save(fig, "fig_reseau")
 
 
-# 21 --------------------------------------------------------------- activations
-def f_activations():
-    fig, ax = plt.subplots(figsize=(5.0, 3.2))
-    z = np.linspace(-4, 4, 200)
-    ax.plot(z, np.maximum(0, z), color=BRONZE, lw=2, label="ReLU")
-    ax.plot(z, 1 / (1 + np.exp(-z)), color=BLEU, lw=2, label="sigmoïde")
-    ax.plot(z, np.tanh(z), color=VERT, lw=2, label="tanh")
-    ax.axhline(0, color="#C9D6E5", lw=0.8); ax.axvline(0, color="#C9D6E5", lw=0.8)
-    ax.set_xlabel("z"); ax.set_ylabel("activation"); ax.set_ylim(-1.3, 4)
-    ax.legend(frameon=False, fontsize=9); ax.set_title("Trois non-linéarités", fontsize=11)
-    save(fig, "fig_activations")
-
-
-# 22 --------------------------------------------------------------- softmax
-def f_softmax():
-    fig, axes = plt.subplots(1, 2, figsize=(5.0, 3.0))
-    logits = np.array([3.0, 1.5, 0.5, -0.5])
-    p = np.exp(logits) / np.exp(logits).sum()
-    axes[0].bar(range(4), logits, color=BLEU)
-    axes[0].set_title("logits (scores bruts)", fontsize=10); axes[0].set_xticks(range(4))
-    axes[1].bar(range(4), p, color=BRONZE)
-    axes[1].set_title("softmax (somme = 1)", fontsize=10); axes[1].set_xticks(range(4))
-    for i, v in enumerate(p):
-        axes[1].text(i, v + 0.02, f"{v:.2f}", ha="center", fontsize=9)
-    save(fig, "fig_softmax")
-
-
 # 23 --------------------------------------------------------------- epoque
 def f_epoque():
     fig, ax = plt.subplots(figsize=(5.0, 3.3)); ax.set_xlim(0, 10); ax.set_ylim(0, 6); ax.axis("off")
-    boite(ax, 0.4, 3.6, 4.2, 1.3, "1. Passe avant\nsortie + perte", fs=10)
-    boite(ax, 5.4, 3.6, 4.2, 1.3, "2. Rétropropagation\ngradient", fs=10)
-    boite(ax, 5.4, 1.2, 4.2, 1.3, "3. Mise à jour\nw ← w − η·g", fs=10)
+    boite(ax, 0.4, 3.6, 4.2, 1.3, "1. Prédire\nle réseau propose", fs=10)
+    boite(ax, 5.4, 3.6, 4.2, 1.3, "2. Mesurer l'erreur\nécart avec la vérité", fs=10)
+    boite(ax, 5.4, 1.2, 4.2, 1.3, "3. Ajuster les poids\npour réduire l'erreur", fs=10)
     boite(ax, 0.4, 1.2, 4.2, 1.3, "4. Recommencer\népoque suivante", fs=10)
     fleche(ax, (4.6, 4.25), (5.4, 4.25)); fleche(ax, (7.5, 3.6), (7.5, 2.5))
     fleche(ax, (5.4, 1.85), (4.6, 1.85)); fleche(ax, (2.5, 2.5), (2.5, 3.6))
-    ax.text(5, 5.5, "Une époque, quatre étapes", ha="center", fontsize=12, color=NAVY, fontweight="bold")
+    ax.text(5, 5.5, "Apprendre = ajuster les poids", ha="center", fontsize=12, color=NAVY, fontweight="bold")
     save(fig, "fig_epoque")
-
-
-# 24 --------------------------------------------------------------- gradient
-def f_gradient():
-    fig, ax = plt.subplots(figsize=(5.0, 3.4))
-    x = np.linspace(-3, 3, 120); y = np.linspace(-3, 3, 120)
-    X, Y = np.meshgrid(x, y); Z = X ** 2 + 2 * Y ** 2
-    cs = ax.contour(X, Y, Z, levels=12, cmap="Oranges")
-    px, py = [2.6], [2.4]
-    for _ in range(14):
-        gx, gy = 2 * px[-1], 4 * py[-1]
-        px.append(px[-1] - 0.16 * gx); py.append(py[-1] - 0.16 * gy)
-    ax.plot(px, py, "o-", color=NAVY, ms=4, lw=1.4)
-    ax.set_xlabel("w1"); ax.set_ylabel("w2")
-    ax.set_title("Descendre le gradient : −η·∇L", fontsize=11)
-    save(fig, "fig_gradient")
-
-
-# 25 --------------------------------------------------------------- backprop
-def f_backprop():
-    fig, ax = plt.subplots(figsize=(5.0, 3.0)); ax.set_xlim(0, 10); ax.set_ylim(0, 5); ax.axis("off")
-    noms = ["entrée", "couche 1", "couche 2", "perte L"]
-    xs = [0.4, 2.9, 5.4, 7.9]
-    for x, n in zip(xs, noms):
-        boite(ax, x, 2.2, 1.9, 1.1, n, fs=10)
-    for i in range(3):
-        fleche(ax, (xs[i] + 1.9, 3.0), (xs[i + 1], 3.0), color=BLEU)
-    for i in range(3, 0, -1):
-        fleche(ax, (xs[i], 1.7), (xs[i - 1] + 1.9, 1.7), color=BRONZE)
-    ax.text(5, 4.2, "avant : calcul de la sortie", ha="center", fontsize=10, color=BLEU)
-    ax.text(5, 0.9, "arrière : le gradient par la règle de chaîne", ha="center", fontsize=10, color=BRONZE)
-    save(fig, "fig_backprop")
-
-
-# 26 --------------------------------------------------------------- lr
-def f_lr():
-    fig, axes = plt.subplots(1, 3, figsize=(11, 2.6))
-    e = np.arange(1, 121)
-    axes[0].plot(e, 0.8 * np.exp(-e / 300) + 0.1, color=GRIS, lw=2)
-    axes[0].set_title("η trop petit : trop lent", fontsize=10)
-    axes[1].plot(e, 0.8 * np.exp(-e / 25) + 0.05, color=VERT, lw=2)
-    axes[1].set_title("η adapté : chute puis stable", fontsize=10)
-    axes[2].plot(e, 0.5 + 0.35 * np.sin(e / 3) * np.exp(-e / 400) + 0.002 * e, color=BRONZE, lw=2)
-    axes[2].set_title("η trop grand : oscille", fontsize=10)
-    for ax in axes: ax.set_xlabel("époque"); ax.set_ylabel("perte"); ax.set_yticks([])
-    save(fig, "fig_lr")
-
-
-# 27 --------------------------------------------------------------- convolution
-def f_convolution():
-    fig, axes = plt.subplots(1, 3, figsize=(5.0, 3.0))
-    img = rng.integers(0, 2, (7, 7))
-    axes[0].imshow(img, cmap="Blues", vmin=0, vmax=1.4)
-    axes[0].add_patch(Rectangle((1.5, 1.5), 3, 3, fc="none", ec=BRONZE, lw=2))
-    axes[0].set_title("image 7×7", fontsize=9)
-    filt = np.array([[1, 0, -1], [1, 0, -1], [1, 0, -1]])
-    axes[1].imshow(filt, cmap="Oranges", vmin=-1.4, vmax=1.4)
-    axes[1].set_title("filtre 3×3", fontsize=9)
-    try:
-        from scipy.signal import convolve2d
-        fm = convolve2d(img, filt, mode="valid")
-    except Exception:
-        fm = np.zeros((5, 5))
-    axes[2].imshow(fm, cmap="Oranges")
-    axes[2].set_title("carte 5×5", fontsize=9)
-    for ax in axes: ax.set_xticks([]); ax.set_yticks([])
-    save(fig, "fig_convolution")
 
 
 # 28 --------------------------------------------------------------- cnn
@@ -546,50 +436,11 @@ def f_autoregressif():
     save(fig, "fig_autoregressif")
 
 
-# 31 --------------------------------------------------------------- temperature
-def f_temperature():
-    fig, axes = plt.subplots(1, 3, figsize=(5.0, 3.0))
-    logits = np.array([3.0, 1.5, 0.5, -0.5, -1.5])
-    for ax, T in zip(axes, [0.2, 1.0, 1.5]):
-        p = np.exp(logits / T) / np.exp(logits / T).sum()
-        ax.bar(range(5), p, color=BRONZE)
-        ax.set_title(f"T = {T}", fontsize=10); ax.set_xticks([]); ax.set_ylim(0, 1)
-    save(fig, "fig_temperature")
-
-
-# 32 --------------------------------------------------------------- top-p
-def f_topp():
-    fig, ax = plt.subplots(figsize=(5.0, 3.2))
-    p = np.array([0.42, 0.21, 0.12, 0.08, 0.06, 0.04, 0.03, 0.02, 0.01, 0.01])
-    ax.bar(range(10), p, color=[BRONZE if i < 3 else "#E1E9F4" for i in range(10)])
-    cum = np.cumsum(p)
-    ax.plot(range(10), cum, color=VERT, lw=2, marker="o", ms=3)
-    ax.axhline(0.8, color=GRIS, ls="--", lw=1)
-    ax.text(6, 0.83, "p = 0,8", fontsize=9, color=GRIS)
-    ax.set_xlabel("tokens triés"); ax.set_ylabel("probabilité")
-    ax.set_title("Top-p : garder le noyau, couper la traîne", fontsize=10)
-    save(fig, "fig_topp")
-
-
-# 33 --------------------------------------------------------------- limites
-def f_limites():
-    fig, ax = plt.subplots(figsize=(5.0, 3.3)); ax.set_xlim(0, 10); ax.set_ylim(0, 6); ax.axis("off")
-    boite(ax, 0.4, 3.4, 4.3, 1.6, "Fluide et plausible\n« CVE-2024-12345… »", fc="#E1E9F4", fs=10)
-    boite(ax, 5.3, 3.4, 4.3, 1.6, "Mais inventé\nréférence introuvable", fc=BRONZE, ec=BRONZE, tc="white", fs=10)
-    fleche(ax, (4.7, 4.2), (5.3, 4.2))
-    ax.text(5, 5.5, "Le modèle optimise la vraisemblance, pas la vérité", ha="center", fontsize=10.5, color=NAVY)
-    ax.text(5, 2.2, "phishing généré, injection de prompt,\ndeepfakes : mêmes mécanismes, nouveaux risques", ha="center", fontsize=9.5, color=GRIS)
-    ax.text(5, 0.8, "Aucune incertitude calibrée en sortie", ha="center", fontsize=9.5, color=GRIS)
-    save(fig, "fig_limites")
-
-
 if __name__ == "__main__":
     print("Génération des figures du cours :")
     for f in [f_pipeline, f_cercles, f_histoire, f_domaines, f_deuxcas, f_paradigmes,
               f_classreg, f_split, f_surapprentissage, f_courbe, f_kmeans, f_acp,
               f_rl, f_bandit, f_confusion_concept, f_precrap, f_regression, f_neurone,
-              f_xor, f_reseau, f_activations, f_softmax, f_epoque, f_gradient,
-              f_backprop, f_lr, f_convolution, f_cnn, f_predgen, f_autoregressif,
-              f_temperature, f_topp, f_limites]:
+              f_reseau, f_epoque, f_cnn, f_predgen, f_autoregressif]:
         f()
     print("Terminé :", len(os.listdir(OUT)), "fichiers dans", OUT)
