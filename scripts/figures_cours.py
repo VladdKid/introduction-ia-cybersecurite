@@ -74,14 +74,13 @@ def f_pipeline():
 
 # 2 ---------------------------------------------------------------- cercles
 def f_cercles():
-    fig, ax = plt.subplots(figsize=(5.0, 5.0)); ax.set_xlim(0, 10); ax.set_ylim(-1.4, 10); ax.set_aspect("equal"); ax.axis("off")
+    fig, ax = plt.subplots(figsize=(5.0, 5.0)); ax.set_xlim(0, 10); ax.set_ylim(0, 10); ax.set_aspect("equal"); ax.axis("off")
     ax.add_patch(Circle((5, 5), 4.6, fc=CLAIR, ec=GRIS, lw=1.4))
     ax.add_patch(Circle((5, 4.4), 3.2, fc="#E1E9F4", ec=BLEU, lw=1.4))
     ax.add_patch(Circle((5, 3.8), 1.9, fc=BRONZE, ec=BRONZE, lw=1.4, alpha=0.9))
     ax.text(5, 8.5, "Intelligence\nartificielle", ha="center", va="center", fontsize=11, color=NAVY, fontweight="bold")
     ax.text(5, 6.5, "Apprentissage\nautomatique", ha="center", va="center", fontsize=10, color=BLEU)
     ax.text(5, 3.8, "Apprentissage\nprofond", ha="center", va="center", fontsize=10, color="white", fontweight="bold")
-    ax.text(5, -0.7, "Sans apprentissage : règles, graphes, planification", ha="center", va="center", fontsize=9, color=GRIS)
     save(fig, "fig_cercles")
 
 
