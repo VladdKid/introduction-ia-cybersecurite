@@ -1,5 +1,13 @@
 # Introduction à l'IA — M2 Cybersécurité
 
+[![Open In Colab — Démo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VladdKid/introduction-ia-cybersecurite/blob/main/demo/demo_phishing.ipynb)
+[![Open In Colab — TP](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VladdKid/introduction-ia-cybersecurite/blob/main/demo/demo_tests.ipynb)
+
+**Sans Jupyter / sans Python installé ?** Cliquez sur un badge ci-dessus pour
+ouvrir la **démo expliquée** ou le **TP auto-évalué** directement dans **Google
+Colab** (dans le navigateur, rien à installer). Voir aussi la
+[section Colab](#version-google-colab-sans-jupyter-dans-le-navigateur) plus bas.
+
 Support de code du cours « Introduction à l'intelligence artificielle » (première
 séance, 6 h) destiné à des étudiants de M2 cybersécurité.
 
